@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 public class Asteroid : MonoBehaviour {
 
-	public int mass = 4;
+	public int level = 3;
+	public int hits = 13;
 
 	public float size = 2f;
 
@@ -34,10 +35,10 @@ public class Asteroid : MonoBehaviour {
 		}
 		Debug.Log ("spawning");
 		spawned = true;
-		size = mass / 2f;
+		size = level / 2f;
 		List<GameObject> legalViews = new List<GameObject>();
 		foreach (GameObject v in views) {
-			if (v.tag == mass.ToString()) {
+			if (v.tag == level.ToString()) {
 				legalViews.Add (v);
 			}
 		}
@@ -50,6 +51,7 @@ public class Asteroid : MonoBehaviour {
 	}
 
 	void Kill () {
+		Debug.Log ("hit");
 		/*
 		GameObject spawn;
 		Asteroid child;
@@ -68,8 +70,8 @@ public class Asteroid : MonoBehaviour {
 			}
 		}
 		*/
-		if (mass > 1) {
-			World.instance.SpawnChildren(mass, transform.position, speed);
+		if (level > 1) {
+			World.instance.SpawnChildren(level, hits, transform.position, speed);
 		}
 		Destroy (gameObject);
 	}

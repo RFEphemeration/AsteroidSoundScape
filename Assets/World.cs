@@ -1,13 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class World : MonoBehaviour {
+
+	public Control ship;
 	
 	public static float width = 10f;
 	public static float height = 10f;
+	
+	public int maxLevel = 3;
 
-	public int startingMass = 15;
-	public int maxMass = 5;
+	public int[,] levelHits = new int[4,2] {{1,1},{3,4},{7,13},{15,40}};
+
+	public int startingHits = 52;
 
 	public float maxSpeed = 4f;
 	public float minSpeed = 2f;
@@ -15,6 +21,12 @@ public class World : MonoBehaviour {
 	public GameObject aster;
 
 	public float spawnDistance = 0.1f;
+
+	public float shortTermChange = 1f;
+
+	void Update() {
+		
+	}
 
 	void Start () {
 		height = Camera.main.orthographicSize * 2;
@@ -25,34 +37,87 @@ public class World : MonoBehaviour {
 	}
 
 	void SpawnAsteroids () {
+		maxLevel = maxLevel - 1;
 		GameObject spawn;
 		Asteroid child;
-		int remainingMass = startingMass;
-		while (remainingMass > 0) {
+		int remainingHits = startingHits;
+		/* Trying to divide in interesting ways, instead of naiive 
+		int[] hits = new int[startingHits/levelHits[maxLevel][0]];
+		int[] newhits;
+		bool flag = false;
+		do {
+			newhits = new int[hits.Length-1];
+			Array.Copy(hits, 0, newhits, 0, newhits.Length);
+			int remainder = hits[hits.Length];
+			while (remainder > 0 && !flag) {
+				foreach (int a in newhits) {
+					if (a < levelHits[maxLevel][0]) {
+						a++;
+						remainder--;
+					} else {
+						flag = true;
+					}
+				}
+			}
+			if (!flag && remainder == 0) {
+				hits = newhits;
+
+			} else if (!flag && remainder > 0) {
+				
+			}
+		} while (!flag);
+		*/
+		while (remainingHits > 0) {
+			Vector3 pos = Vector3.zero;
+			while ((pos - ship.transform.position).magnitude < ship.size + maxLevel / 2f) {
+				pos = new Vector3(Random.Range(0, World.width) - World.width/2 , Random.Range(0, World.height) - World.height/2, 0);
+			}
 			spawn = (GameObject) Instantiate(aster,
-			                                 transform.position,
+			                                 pos,
 			                                 Quaternion.Euler(0,0, Random.Range(0f, 360f)));
 			child = spawn.GetComponent<Asteroid>();
-			child.mass = Random.Range(1, Mathf.Min(remainingMass, maxMass));
-			remainingMass -= child.mass;
-			child.speed = Random.Range(minSpeed, maxSpeed * child.mass / maxMass);
+			if (remainingHits > levelHits[maxLevel,1]) {
+				child.hits = levelHits[maxLevel,1];
+			} else if (remainingHits >= levelHits[maxLevel,0]) {
+				child.hits = remainingHits;
+			} else {
+				child.hits = levelHits[maxLevel,0];
+				maxLevel -= 1;
+			}
+			remainingHits -= child.hits;
+			child.level = 1;
+			while (levelHits[child.level-1,1] < child.hits) {
+				child.level++;
+			}
+			child.speed = Random.Range(minSpeed, maxSpeed * child.level / maxLevel);
 			child.SendMessage("Generate");
 		}
 	}
 
-	public void SpawnChildren (int mass, Vector3 pos, float speed) {
+	public void SpawnChildren (int level, int hits, Vector3 pos, float speed) {
+		level -= 1;
 		GameObject spawn;
 		Asteroid child;
-		int remainingMass = mass;
-		while (remainingMass > 0) {
+		int remainingHits = hits - 1;
+		while (remainingHits > 0) {
 			spawn = (GameObject) Instantiate(aster,
 			                                 pos,
-			                                 Quaternion.Euler(0, 0, Random.Range(0f, 360f)));
-			spawn.transform.position += spawn.transform.up * (float)mass * spawnDistance * Random.value;
+			                                 Quaternion.Euler(0,0, Random.Range(0f, 360f)));
 			child = spawn.GetComponent<Asteroid>();
-			child.mass = Random.Range(1, remainingMass);
-			remainingMass -= child.mass;
-			child.speed = Random.Range(0.1f, speed * child.mass / mass);
+			if (remainingHits > levelHits[level,1]) {
+				child.hits = levelHits[level,1];
+			} else if (remainingHits >= levelHits[level,0]) {
+				child.hits = remainingHits;
+			} else {
+				child.hits = levelHits[level,0];
+				level -= 1;
+			}
+			remainingHits -= child.hits;
+			child.level = 1;
+			while (levelHits[child.level-1,1] < child.hits) {
+				child.level++;
+			}
+			child.speed = Random.Range(minSpeed, maxSpeed * child.level / maxLevel);
 			child.SendMessage("Generate");
 		}
 	}
