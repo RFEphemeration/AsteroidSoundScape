@@ -24,6 +24,8 @@ public class World : MonoBehaviour {
 
 	public float shortTermChange = 1f;
 
+	public int hitCount = 0;
+
 	void Update() {
 		
 	}

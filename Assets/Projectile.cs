@@ -21,6 +21,7 @@ public class Projectile : MonoBehaviour {
 	public void Fire () {
 		startTime = Time.time;
 		rigidbody.velocity += transform.up * speed;
+		rigidbody.velocity = rigidbody.velocity.normalized * speed;
 	}
 	
 	// Update is called once per frame

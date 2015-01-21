@@ -29,11 +29,7 @@ public class Asteroid : MonoBehaviour {
 	}
 
 	public void Generate() {
-		if (spawned) {
-			Debug.Log ("already spawned");
-			return;
-		}
-		Debug.Log ("spawning");
+		if (spawned) return;
 		spawned = true;
 		size = level / 2f;
 		List<GameObject> legalViews = new List<GameObject>();
@@ -51,7 +47,7 @@ public class Asteroid : MonoBehaviour {
 	}
 
 	void Kill () {
-		Debug.Log ("hit");
+		World.instance.hitCount += 1;
 		/*
 		GameObject spawn;
 		Asteroid child;

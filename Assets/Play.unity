@@ -404,7 +404,7 @@ MonoBehaviour:
   maxSpeed: 6
   acceleration: 10
   turnRate: 200
-  fireDelay: .100000001
+  fireDelay: 4.03999996
   size: .800000012
   gunpoint: .449999988
 --- !u!54 &345835374
@@ -651,6 +651,7 @@ MonoBehaviour:
   aster: {fileID: 100000, guid: b50d6af26d8acdf4b896f1ae9c4dbe17, type: 2}
   spawnDistance: .449999988
   shortTermChange: 1
+  hitCount: 0
 --- !u!4 &912601692
 Transform:
   m_ObjectHideFlags: 0
