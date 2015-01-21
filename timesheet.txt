@@ -2,4 +2,4 @@ Sat 10 Jan
 	3 hours move, shoot, asteroids w/ destruction
 	
 Tues 20 Jan
-  1 hr 30 minutes player engine, asteroid spawning, world hitcount flexibility
+  2 hours player engine, asteroid spawning, world hitcount flexibility
