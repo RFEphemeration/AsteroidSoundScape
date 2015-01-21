@@ -37,7 +37,6 @@ public class World : MonoBehaviour {
 	}
 
 	void SpawnAsteroids () {
-		maxLevel = maxLevel - 1;
 		GameObject spawn;
 		Asteroid child;
 		int remainingHits = startingHits;
@@ -76,13 +75,15 @@ public class World : MonoBehaviour {
 			                                 pos,
 			                                 Quaternion.Euler(0,0, Random.Range(0f, 360f)));
 			child = spawn.GetComponent<Asteroid>();
-			if (remainingHits > levelHits[maxLevel,1]) {
-				child.hits = levelHits[maxLevel,1];
-			} else if (remainingHits >= levelHits[maxLevel,0]) {
-				child.hits = remainingHits;
-			} else {
-				child.hits = levelHits[maxLevel,0];
-				maxLevel -= 1;
+			child.hits = 0;
+			while (child.hits == 0) {
+				if (remainingHits > levelHits[maxLevel-1,1]) {
+					child.hits = levelHits[maxLevel-1,1];
+				} else if (remainingHits >= levelHits[maxLevel-1,0]) {
+					child.hits = remainingHits;
+				} else {
+					maxLevel -= 1;
+				}
 			}
 			remainingHits -= child.hits;
 			child.level = 1;
@@ -104,13 +105,15 @@ public class World : MonoBehaviour {
 			                                 pos,
 			                                 Quaternion.Euler(0,0, Random.Range(0f, 360f)));
 			child = spawn.GetComponent<Asteroid>();
-			if (remainingHits > levelHits[level,1]) {
-				child.hits = levelHits[level,1];
-			} else if (remainingHits >= levelHits[level,0]) {
-				child.hits = remainingHits;
-			} else {
-				child.hits = levelHits[level,0];
-				level -= 1;
+			child.hits = 0;
+			while (child.hits == 0) {
+				if (remainingHits > levelHits[level-1,1]) {
+					child.hits = levelHits[level-1,1];
+				} else if (remainingHits >= levelHits[level-1,0]) {
+					child.hits = remainingHits;
+				} else {
+					level -= 1;
+				}
 			}
 			remainingHits -= child.hits;
 			child.level = 1;

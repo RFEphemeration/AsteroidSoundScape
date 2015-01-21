@@ -396,16 +396,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 345835371}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edfe248f0bd977945a3781aeac66c0c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 353ab72a24acca348932162c02260eb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 100002, guid: 5bd08b62bef997e4f92b241f5786aa42, type: 2}
+  projectile: {fileID: 100002, guid: 864d13907bc07af49b75eeaad3361f32, type: 2}
   engine: {fileID: 308471371}
   maxSpeed: 6
   acceleration: 10
   turnRate: 200
   fireDelay: .100000001
-  size: .5
+  size: .800000012
   gunpoint: .449999988
 --- !u!54 &345835374
 Rigidbody:
@@ -640,16 +640,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 912601690}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ca20747758911344a83ba6383cb8093, type: 3}
+  m_Script: {fileID: 11500000, guid: ea8e14863952c564b96ebc20afa9414b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ship: {fileID: 345835373}
   maxLevel: 3
-  startingHits: 52
+  startingHits: 56
   maxSpeed: 4
   minSpeed: 2
-  aster: {fileID: 100000, guid: f6b529bdbfbeb2b41a3f58d619c72b65, type: 2}
-  spawnDistance: .5
+  aster: {fileID: 100000, guid: b50d6af26d8acdf4b896f1ae9c4dbe17, type: 2}
+  spawnDistance: .449999988
   shortTermChange: 1
 --- !u!4 &912601692
 Transform:

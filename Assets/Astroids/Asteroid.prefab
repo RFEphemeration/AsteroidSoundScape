@@ -52,17 +52,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e3e064b4954f8141ae48d1462ebef9b, type: 3}
+  m_Script: {fileID: 11500000, guid: 752847e1957788f41ade34a434656c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mass: 4
-  size: 4
+  level: 3
+  hits: 13
+  size: 2
   speed: 5
   views:
-  - {fileID: 100004, guid: 119fa0fa9d7a1d842af703c1e817b20b, type: 2}
-  - {fileID: 100000, guid: 8c9b9c1ef1b96fc4c8f6bbbbef6bd8fa, type: 2}
-  - {fileID: 100006, guid: bbb218a4d06adcd4da729561b57ce26d, type: 2}
-  - {fileID: 100000, guid: 557b8f162927e534bb97f91cdf566743, type: 2}
+  - {fileID: 100004, guid: b42811430ae1a454dbbfa108bd258cfa, type: 2}
+  - {fileID: 100000, guid: c089f0766bdc58749b1e241562734fc1, type: 2}
+  - {fileID: 100006, guid: 9246d3144eecdae43a561ed474ab09d7, type: 2}
+  - {fileID: 100000, guid: 417debcdf2fb91443873d96a85745345, type: 2}
   spawned: 0
   aster: {fileID: 100000}
 --- !u!1001 &100100000

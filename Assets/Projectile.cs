@@ -11,6 +11,8 @@ public class Projectile : MonoBehaviour {
 	
 	private float startTime;
 
+	private bool isColliding = false;
+
 	// Use this for initialization
 	void Start () {
 		startTime = Time.time;
@@ -30,6 +32,8 @@ public class Projectile : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
+		if(isColliding) return;
+		isColliding = true;
 		Transform current = other.transform;
 		while (current != null) {
 			if (current.tag == "Asteroid") {
