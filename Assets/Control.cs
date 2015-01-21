@@ -18,6 +18,8 @@ public class Control : MonoBehaviour {
 	public float size = 0.8f;
 
 	public float gunpoint = 0.45f;
+
+	private bool isColliding = false;
 	// Use this for initialization
 	void Start () {
 
@@ -50,6 +52,22 @@ public class Control : MonoBehaviour {
 
 	void Shoot () {
 		GameObject shot = (GameObject) Instantiate(projectile,transform.position + transform.up * gunpoint, transform.rotation);
+		shot.rigidbody.velocity = rigidbody.velocity;
 		shot.SendMessage("Fire");
 	}
+
+	void OnTriggerEnter(Collider other) {
+		if(isColliding) return;
+		isColliding = true;
+		Transform current = other.transform;
+		while (current != null) {
+			if (current.tag == "Asteroid") {
+				current.SendMessage("Kill");
+				// TODO: write respawn
+				Destroy(gameObject);
+			}
+			current = current.parent;
+		}
+	}
+
 }

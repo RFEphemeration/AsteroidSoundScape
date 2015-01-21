@@ -645,7 +645,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ship: {fileID: 345835373}
   maxLevel: 3
-  startingHits: 56
+  startingHits: 11
   maxSpeed: 4
   minSpeed: 2
   aster: {fileID: 100000, guid: b50d6af26d8acdf4b896f1ae9c4dbe17, type: 2}

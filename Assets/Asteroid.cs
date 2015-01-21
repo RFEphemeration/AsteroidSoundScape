@@ -75,15 +75,4 @@ public class Asteroid : MonoBehaviour {
 		}
 		Destroy (gameObject);
 	}
-
-	void OnTriggerEnter(Collider other) {
-		Transform current = other.transform;
-		while (current != null) {
-			if (current.tag == "Player") {
-				Destroy(current.gameObject);
-				Kill ();
-			}
-			current = current.parent;
-		}
-	}
 }
