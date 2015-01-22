@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Control : MonoBehaviour {
 
@@ -13,16 +14,27 @@ public class Control : MonoBehaviour {
 	public float turnRate = 200f;
 
 	public float fireDelay = 0.1f;
+	public float reloadInterval = 4.4f;
+	private float reloadTime;
 	private float fireTime;
 
 	public float size = 0.8f;
 
 	public float gunpoint = 0.45f;
 
+	public List<Reloader> ammoSlots;
+
 	private bool isColliding = false;
+
+	public AudioClip shotSound;
+	public AudioClip deathSound;
+
 	// Use this for initialization
 	void Start () {
-
+		foreach (Reloader r in ammoSlots) {
+			r.reloadInterval = reloadInterval;
+		}
+		reloadTime = -reloadInterval - 1f;
 	}
 	
 	// Update is called once per frame
@@ -35,14 +47,16 @@ public class Control : MonoBehaviour {
 		} else {
 			engine.SetActive(false);
 		}
-
-		if (Input.GetKey ("space")) {
-			if (Time.time > fireTime) {
-				fireTime = Time.time + fireDelay;
-				Shoot ();
+		if (Time.time > reloadTime + reloadInterval && !FullyLoaded()) {
+			if (StartReload()) {
+				reloadTime = Time.time;
 			}
 		}
-
+		if (Input.GetKey ("space") && Time.time > fireTime + fireDelay) {
+			if (Shoot()) {
+				fireTime = Time.time;
+			}
+		}
 		if (rigidbody.velocity.magnitude > maxSpeed) rigidbody.velocity = rigidbody.velocity.normalized * maxSpeed;
 		
 		transform.position = new Vector3(-World.width/2 - size + Mathf.Repeat(transform.position.x + World.width/2 + size, World.width + size * 2),
@@ -50,10 +64,42 @@ public class Control : MonoBehaviour {
 		                                 transform.position.z);
 	}
 
-	void Shoot () {
-		GameObject shot = (GameObject) Instantiate(projectile,transform.position + transform.up * gunpoint, transform.rotation);
-		shot.rigidbody.velocity = rigidbody.velocity;
-		shot.SendMessage("Fire");
+	bool Shoot () {
+		Reloader next = ammoSlots[0];
+		float oldestReload = Time.time;
+		foreach (Reloader r in ammoSlots) {
+			if (r.reloadTime < oldestReload && r.state == Reloader.State.loaded) {
+				oldestReload = r.reloadTime;
+				next = r;
+			}
+		}
+		if (next.Fire()) {
+			AudioSource.PlayClipAtPoint(shotSound, transform.position);
+			GameObject shot = (GameObject) Instantiate(projectile,transform.position + transform.up * gunpoint, transform.rotation);
+			shot.rigidbody.velocity = rigidbody.velocity;
+			shot.SendMessage("Fire");
+			return true;
+		} else return false;
+	}
+
+	bool StartReload() {
+		Reloader next = ammoSlots[0];
+		float oldestReload = Time.time;
+		foreach (Reloader r in ammoSlots) {
+			if (r.reloadTime < oldestReload && r.state == Reloader.State.empty) {
+				oldestReload = r.reloadTime;
+				next = r;
+			}
+		}
+		return next.Reload();
+	}
+
+	bool FullyLoaded() {
+		int loaded = 0;
+		foreach (Reloader r in ammoSlots) {
+			if (r.state == Reloader.State.loaded) loaded++;
+		}
+		return (loaded == ammoSlots.Count);
 	}
 
 	void OnTriggerEnter(Collider other) {
@@ -62,8 +108,9 @@ public class Control : MonoBehaviour {
 		Transform current = other.transform;
 		while (current != null) {
 			if (current.tag == "Asteroid") {
+				AudioSource.PlayClipAtPoint(deathSound, transform.position);
 				current.SendMessage("Kill");
-				// TODO: write respawn
+				World.instance.SendMessage("PlayerDied");
 				Destroy(gameObject);
 			}
 			current = current.parent;

@@ -17,6 +17,8 @@ public class Asteroid : MonoBehaviour {
 
 	public GameObject aster;
 
+	public AudioClip explosionSound; 
+
 	void Start() {
 		spawned = false;
 	}
@@ -31,7 +33,7 @@ public class Asteroid : MonoBehaviour {
 	public void Generate() {
 		if (spawned) return;
 		spawned = true;
-		size = level / 2f;
+		size = level / 4f;
 		List<GameObject> legalViews = new List<GameObject>();
 		foreach (GameObject v in views) {
 			if (v.tag == level.ToString()) {
@@ -47,25 +49,9 @@ public class Asteroid : MonoBehaviour {
 	}
 
 	void Kill () {
+		AudioSource.PlayClipAtPoint(explosionSound, transform.position);
 		World.instance.hitCount += 1;
-		/*
-		GameObject spawn;
-		Asteroid child;
-		int remainingMass = mass;
-		if (remainingMass > 1) {
-			while (remainingMass > 0) {
-				spawn = (GameObject) Instantiate(aster,
-				                                 transform.position + new Vector3(Random.Range(-spawnDistance, spawnDistance), Random.Range (-spawnDistance, spawnDistance), 0),
-				                                 Quaternion.Euler(0,0, Random.Range(0f, 360f)));
-				Debug.Log ("instantiated");
-				child = spawn.GetComponent<Asteroid>();
-				child.mass = Random.Range(1, remainingMass);
-				remainingMass -= child.mass;
-				child.speed = Random.Range(0.1f, speed * child.mass / mass);
-				child.SendMessage("Generate");
-			}
-		}
-		*/
+		World.instance.Asteroids.Remove(gameObject);
 		if (level > 1) {
 			World.instance.SpawnChildren(level, hits, transform.position, speed);
 		}

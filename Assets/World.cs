@@ -4,11 +4,15 @@ using System.Collections.Generic;
 
 public class World : MonoBehaviour {
 
-	public Control ship;
+
+	public GameObject playerPrefab;
+	public GameObject player;
 	
 	public static float width = 10f;
 	public static float height = 10f;
-	
+
+	public static float maxDist;
+
 	public int maxLevel = 3;
 
 	public int[,] levelHits = new int[4,2] {{1,1},{3,4},{7,13},{15,40}};
@@ -22,26 +26,57 @@ public class World : MonoBehaviour {
 
 	public float spawnDistance = 0.1f;
 
+	public bool respawning = false;
+	public float respawnTime;
+	public float respawnDelay = 2f;
+	public float softSafeDistance = 2.5f;
+	public float hardSafeDistance = 1f;
+
+	public List<GameObject> Asteroids = new List<GameObject>();
+
+	private bool endgame = false;
+
+
 	public float shortTermChange = 1f;
-
 	public int hitCount = 0;
-
-	void Update() {
-		
-	}
-
+	public int deathCount = 0;
+	
 	void Start () {
+		Debug.Log("Game Start");
+		respawning = true;
+		respawnTime = Time.time + respawnDelay;
 		height = Camera.main.orthographicSize * 2;
-
+		
 		float aspectRatio = (float)Screen.width / (float)Screen.height;
 		width = height * aspectRatio;
+		maxDist = Mathf.Sqrt(width * width + height * height);
 		SpawnAsteroids();
+	}
+
+	void Update() {
+		if (respawning && Time.time > respawnTime) {
+			TryRespawnPlayer();
+		}
+		if (respawning) {
+			shortTermChange = 0f;
+		} else {
+			float minDistance = maxDist;
+			foreach(GameObject a in Asteroids) {
+				float dist = (a.transform.position - player.transform.position).magnitude;
+				if (dist < minDistance) minDistance = dist;
+			}
+			shortTermChange = (maxDist - minDistance)/maxDist;
+		}
+		if (hitCount >= startingHits) {
+			EndGame();
+		}
 	}
 
 	void SpawnAsteroids () {
 		GameObject spawn;
 		Asteroid child;
 		int remainingHits = startingHits;
+		Control ship = playerPrefab.GetComponent<Control>();
 		/* Trying to divide in interesting ways, instead of naiive 
 		int[] hits = new int[startingHits/levelHits[maxLevel][0]];
 		int[] newhits;
@@ -70,7 +105,7 @@ public class World : MonoBehaviour {
 		*/
 		while (remainingHits > 0) {
 			Vector3 pos = Vector3.zero;
-			while ((pos - ship.transform.position).magnitude < ship.size + maxLevel / 2f) {
+			while (pos.magnitude < ship.size + maxLevel / 2f) {
 				pos = new Vector3(Random.Range(0, World.width) - World.width/2 , Random.Range(0, World.height) - World.height/2, 0);
 			}
 			spawn = (GameObject) Instantiate(aster,
@@ -94,6 +129,7 @@ public class World : MonoBehaviour {
 			}
 			child.speed = Random.Range(minSpeed, maxSpeed * child.level / maxLevel);
 			child.SendMessage("Generate");
+			Asteroids.Add(spawn);
 		}
 	}
 
@@ -124,9 +160,40 @@ public class World : MonoBehaviour {
 			}
 			child.speed = Random.Range(minSpeed, maxSpeed * child.level / maxLevel);
 			child.SendMessage("Generate");
+			Asteroids.Add(spawn);
 		}
 	}
 
+	public bool TryRespawnPlayer() {
+		if (!respawning) return false;
+		foreach(GameObject a in Asteroids) {
+			// check if it is safe
+			float dist = a.transform.position.magnitude;
+			if (dist < softSafeDistance) {
+				if (dist < hardSafeDistance) return false;
+				bool approachingCenter = dist > (a.transform.position + a.rigidbody.velocity * 0.1f).magnitude;
+				if (approachingCenter) return false;
+			}
+		}
+		player = (GameObject) Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+		respawning = false;
+		return true;
+
+	}
+
+	public void PlayerDied() {
+		respawning = true;
+		deathCount++;
+		// TODO: make respawn time coordinate with loop timing
+		respawnTime = Time.time + respawnDelay;
+	}
+
+	public void EndGame() {
+		if (endgame) return;
+		endgame = true;
+		Debug.Log ("EndGame");
+		CameraFade.StartAlphaFade( Color.white, false, 10f, 2f);
+	}
 	
 	private static World _instance;
 	

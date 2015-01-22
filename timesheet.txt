@@ -3,3 +3,6 @@ Sat 10 Jan
 	
 Tues 20 Jan
   2 hours player engine, asteroid spawning, world hitcount flexibility
+
+Wed 21 Jan
+  4 hours changeVariables, sound cues, respawn, start of endgame, reload animations, ammo capacity
