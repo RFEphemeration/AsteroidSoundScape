@@ -74,7 +74,7 @@ public class Control : MonoBehaviour {
 			}
 		}
 		if (next.Fire()) {
-			AudioSource.PlayClipAtPoint(shotSound, transform.position);
+			// AudioSource.PlayClipAtPoint(shotSound, transform.position);
 			GameObject shot = (GameObject) Instantiate(projectile,transform.position + transform.up * gunpoint, transform.rotation);
 			shot.rigidbody.velocity = rigidbody.velocity;
 			shot.SendMessage("Fire");
@@ -108,7 +108,7 @@ public class Control : MonoBehaviour {
 		Transform current = other.transform;
 		while (current != null) {
 			if (current.tag == "Asteroid") {
-				AudioSource.PlayClipAtPoint(deathSound, transform.position);
+				// AudioSource.PlayClipAtPoint(deathSound, transform.position);
 				current.SendMessage("Kill");
 				World.instance.SendMessage("PlayerDied");
 				Destroy(gameObject);

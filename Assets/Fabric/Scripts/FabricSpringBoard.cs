@@ -9,6 +9,16 @@ namespace Fabric
 
     class FabricSpringBoardListener : UnityEditor.AssetModificationProcessor
     {
+#if UNITY_4_6
+       public static string[] OnWillSaveAssets(string[] assets)
+        {
+            if(FabricSpringBoard._isPresent)
+            {
+                FabricSpringBoard.DestroyFabricManagerInEditor();
+            }
+            return assets;
+        }
+#else
         public static void OnWillSaveAssets(string[] assets)
         {
             if(FabricSpringBoard._isPresent)
@@ -16,6 +26,7 @@ namespace Fabric
                 FabricSpringBoard.DestroyFabricManagerInEditor();
             }
         }
+#endif
     }
 
 #endif
