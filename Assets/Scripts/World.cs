@@ -42,6 +42,7 @@ public class World : MonoBehaviour {
 	public int deathCount = 0;
 	
 	void Start () {
+		Fabric.EventManager.Instance.PostEvent("Music");
 		Debug.Log("Game Start");
 		respawning = true;
 		respawnTime = Time.time + respawnDelay;
