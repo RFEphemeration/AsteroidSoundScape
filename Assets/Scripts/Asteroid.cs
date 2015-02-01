@@ -51,7 +51,7 @@ public class Asteroid : MonoBehaviour {
 	void Kill () {
 		// AudioSource.PlayClipAtPoint(explosionSound, transform.position);
 		World.instance.hitCount += 1;
-		World.instance.audio.Progress();
+		World.instance.audioMan.Progress();
 		World.instance.Asteroids.Remove(gameObject);
 		if (level > 1) {
 			World.instance.SpawnChildren(level, hits, transform.position, speed);

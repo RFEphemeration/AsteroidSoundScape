@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class World : MonoBehaviour {
 
-	public AudioManager audio;
+	public AudioManager audioMan;
 
 	public GameObject playerPrefab;
 	public GameObject player;
