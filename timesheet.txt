@@ -6,3 +6,9 @@ Tues 20 Jan
 
 Wed 21 Jan
   4 hours changeVariables, sound cues, respawn, start of endgame, reload animations, ammo capacity
+  
+Friday 30 Jan
+  1 hr fabric
+
+Saturday 31 Jan
+  5 hours fabric

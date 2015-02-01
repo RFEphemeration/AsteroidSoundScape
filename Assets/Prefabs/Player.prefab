@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 0
@@ -1126,13 +1126,12 @@ MonoBehaviour:
   acceleration: 10
   turnRate: 200
   fireDelay: .25
-  reloadInterval: 1
+  reloadInterval: 4
   size: .800000012
   gunpoint: .449999988
   ammoSlots:
   - {fileID: 11400002}
   - {fileID: 11472476}
-  - {fileID: 11400000}
   shotSound: {fileID: 8300000, guid: 4e88c61a08f55c74bb28e7f925ade304, type: 3}
   deathSound: {fileID: 8300000, guid: eb5d9e411ad5ee042a30528f6f4a1386, type: 3}
 --- !u!114 &11472476

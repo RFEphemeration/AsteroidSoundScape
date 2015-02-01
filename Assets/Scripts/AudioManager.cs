@@ -13,4 +13,8 @@ public class AudioManager : MonoBehaviour {
 		Fabric.EventManager.Instance.SetParameter("Music", "Combat", World.instance.shortTermChange, null);
 	}
 
+	public void Progress() {
+		Fabric.EventManager.Instance.PostEvent("Progress", Fabric.EventAction.AdvanceSequence);
+	}
+
 }
