@@ -1122,7 +1122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 100002, guid: 864d13907bc07af49b75eeaad3361f32, type: 2}
   engine: {fileID: 100012}
-  maxSpeed: 6
+  maxSpeed: 7
   acceleration: 10
   turnRate: 200
   fireDelay: .25

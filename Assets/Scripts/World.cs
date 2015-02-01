@@ -6,6 +6,10 @@ public class World : MonoBehaviour {
 
 	public AudioManager audioMan;
 
+	public List<CanvasRenderer> text;
+
+	public Fade white;
+
 	public GameObject playerPrefab;
 	public GameObject player;
 	
@@ -35,7 +39,7 @@ public class World : MonoBehaviour {
 
 	public List<GameObject> Asteroids = new List<GameObject>();
 
-	private bool endgame = false;
+	private bool endgame = true;
 
 
 	public float shortTermChange = 1f;
@@ -43,19 +47,16 @@ public class World : MonoBehaviour {
 	public int deathCount = 0;
 	
 	void Start () {
-		// Fabric.EventManager.Instance.PostEvent("Music");
-		Debug.Log("Game Start");
-		respawning = true;
-		respawnTime = Time.time + respawnDelay;
-		height = Camera.main.orthographicSize * 2;
-		
-		float aspectRatio = (float)Screen.width / (float)Screen.height;
-		width = height * aspectRatio;
-		maxDist = Mathf.Sqrt(width * width + height * height);
-		SpawnAsteroids();
 	}
 
 	void Update() {
+		if (endgame) {
+			if (Input.GetKeyDown("space")) {
+				Reset();
+			} else {
+				return;
+			}
+		}
 		if (respawning && Time.time > respawnTime) {
 			TryRespawnPlayer();
 		}
@@ -193,8 +194,42 @@ public class World : MonoBehaviour {
 	public void EndGame() {
 		if (endgame) return;
 		endgame = true;
-		Debug.Log ("EndGame");
-		CameraFade.StartAlphaFade( Color.white, false, 10f, 2f);
+		Debug.Log ("Game End");
+		StartCoroutine(white.DoFade(1f, 6f, true));
+		foreach( CanvasRenderer cr in text) {
+			cr.gameObject.SetActive(true);
+		}
+		Clear ();
+		// CameraFade.StartAlphaFade( Color.white, false, 10f, 2f);
+	}
+
+	public void Reset() {
+		// Fabric.EventManager.Instance.PostEvent("Music");
+		Debug.Log("Game Start");
+		Clear ();
+		StartCoroutine(white.DoFade(1f, 6f, false));
+		respawning = true;
+		respawnTime = Time.time + respawnDelay;
+		height = Camera.main.orthographicSize * 2;
+		
+		float aspectRatio = (float)Screen.width / (float)Screen.height;
+		width = height * aspectRatio;
+		maxDist = Mathf.Sqrt(width * width + height * height);
+		SpawnAsteroids();
+
+		foreach( CanvasRenderer cr in text) {
+			cr.gameObject.SetActive(false);
+		}
+		endgame = false;
+	}
+
+	public void Clear() {
+		Destroy(player);
+		player = null;
+		foreach (GameObject g in Asteroids) {
+			Destroy(g);
+		}
+		Asteroids = new List<GameObject>();
 	}
 	
 	private static World _instance;
