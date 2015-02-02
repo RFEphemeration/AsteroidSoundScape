@@ -39,6 +39,7 @@ public class Control : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (GameFlow.state == GameFlow.State.Pause) return;
 		if (Input.GetKey ("left")) transform.Rotate(0,0, turnRate * Time.deltaTime);
 		if (Input.GetKey ("right")) transform.Rotate(0,0, -turnRate * Time.deltaTime);
 		if (Input.GetKey ("up")) { 

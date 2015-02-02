@@ -6,10 +6,6 @@ public class World : MonoBehaviour {
 
 	public AudioManager audioMan;
 
-	public List<CanvasRenderer> text;
-
-	public Fade white;
-
 	public GameObject playerPrefab;
 	public GameObject player;
 	
@@ -39,9 +35,6 @@ public class World : MonoBehaviour {
 
 	public List<GameObject> Asteroids = new List<GameObject>();
 
-	private bool endgame = true;
-
-
 	public float shortTermChange = 1f;
 	public int hitCount = 0;
 	public int deathCount = 0;
@@ -50,13 +43,7 @@ public class World : MonoBehaviour {
 	}
 
 	void Update() {
-		if (endgame) {
-			if (Input.GetKeyDown("space")) {
-				Reset();
-			} else {
-				return;
-			}
-		}
+		if (GameFlow.state != GameFlow.State.Play) return;
 		if (respawning && Time.time > respawnTime) {
 			TryRespawnPlayer();
 		}
@@ -71,7 +58,7 @@ public class World : MonoBehaviour {
 			shortTermChange = (maxDist - minDistance)/maxDist;
 		}
 		if (hitCount >= startingHits) {
-			EndGame();
+			GameFlow.instance.EndGame();
 		}
 	}
 
@@ -191,23 +178,7 @@ public class World : MonoBehaviour {
 		respawnTime = Time.time + respawnDelay;
 	}
 
-	public void EndGame() {
-		if (endgame) return;
-		endgame = true;
-		Debug.Log ("Game End");
-		StartCoroutine(white.DoFade(1f, 6f, true));
-		foreach( CanvasRenderer cr in text) {
-			cr.gameObject.SetActive(true);
-		}
-		Clear ();
-		// CameraFade.StartAlphaFade( Color.white, false, 10f, 2f);
-	}
-
 	public void Reset() {
-		// Fabric.EventManager.Instance.PostEvent("Music");
-		Debug.Log("Game Start");
-		Clear ();
-		StartCoroutine(white.DoFade(1f, 6f, false));
 		respawning = true;
 		respawnTime = Time.time + respawnDelay;
 		height = Camera.main.orthographicSize * 2;
@@ -216,11 +187,6 @@ public class World : MonoBehaviour {
 		width = height * aspectRatio;
 		maxDist = Mathf.Sqrt(width * width + height * height);
 		SpawnAsteroids();
-
-		foreach( CanvasRenderer cr in text) {
-			cr.gameObject.SetActive(false);
-		}
-		endgame = false;
 	}
 
 	public void Clear() {

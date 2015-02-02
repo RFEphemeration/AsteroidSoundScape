@@ -14,9 +14,6 @@ public class Fade : MonoBehaviour {
 		Color c = renderer.material.color;
 		c.a = (visible) ? 1 : 0;
 		renderer.material.color = c;
-		for (float a = 0f; a < 1f; a += 0.01f) {
-			Debug.Log (Ease(a));
-		}
 	}
 
 	public IEnumerator FadeOut() {
