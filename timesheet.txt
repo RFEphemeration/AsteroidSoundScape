@@ -15,4 +15,5 @@ Saturday 31 Jan
   3 hours game restart, text, fonts
   
 Monday 2 February
-  1 hour game flow, respawn safety, and pausing
+  1 hour game flow, respawn safety, and pausing 
+  1 hour conversation about github and fixing things
