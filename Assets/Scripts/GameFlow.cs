@@ -62,9 +62,9 @@ public class GameFlow : MonoBehaviour {
 		foreach( CanvasRenderer cr in text) {
 			cr.gameObject.SetActive(false);
 		}
+		World.instance.Reset();
 		state = State.Play;
 		AudioManager.Begin();
-		World.instance.Reset();
 	}
 
 	private static GameFlow _instance;

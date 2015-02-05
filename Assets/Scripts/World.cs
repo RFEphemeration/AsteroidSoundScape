@@ -184,6 +184,7 @@ public class World : MonoBehaviour {
 		float aspectRatio = (float)Screen.width / (float)Screen.height;
 		width = height * aspectRatio;
 		maxDist = Mathf.Sqrt(width * width + height * height);
+		hitCount = 0;
 		SpawnAsteroids();
 	}
 
