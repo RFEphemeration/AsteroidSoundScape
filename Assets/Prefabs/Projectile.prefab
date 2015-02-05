@@ -125,8 +125,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7300a8e570a4e0479dd0b1acd4d4e87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeOut: 1
-  speed: 10
+  timeOut: 1.20000005
+  speed: 9
   size: .100000001
 --- !u!1001 &100100000
 Prefab:

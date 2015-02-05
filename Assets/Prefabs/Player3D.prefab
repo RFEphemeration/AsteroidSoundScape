@@ -436,7 +436,7 @@ MonoBehaviour:
   acceleration: 10
   turnRate: 200
   fireDelay: .25
-  reloadInterval: 4
+  reloadInterval: .99000001
   size: .800000012
   gunpoint: .550000012
   ammoSlots:

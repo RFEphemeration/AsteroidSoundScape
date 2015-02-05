@@ -13,7 +13,12 @@ public class AudioManager : MonoBehaviour {
 	}
 
 	public static void Begin() {
-		Fabric.EventManager.Instance.PostEvent("Music");
+		Fabric.EventManager.Instance.PostEvent("Music", Fabric.EventAction.ResetSequence);
+		Fabric.EventManager.Instance.PostEvent("Music", Fabric.EventAction.SetFadeIn);
+	}
+
+	public static void End() {
+		Fabric.EventManager.Instance.PostEvent("Music", Fabric.EventAction.SetFadeOut);
 	}
 
 }

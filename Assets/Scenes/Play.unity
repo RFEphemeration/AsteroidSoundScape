@@ -944,8 +944,8 @@ MonoBehaviour:
   _loopBehaviour: 0
   _velocity: 0
   _seekSpeed: 0
-  _seekTarget: .782110035
-  _value: .782110035
+  _seekTarget: .884004712
+  _value: .884004712
   _resetToDefaultValue: 0
   _markers:
     _markers: []
@@ -1337,9 +1337,10 @@ MonoBehaviour:
   playerPrefab: {fileID: 100014, guid: b7ccb222e4d985e44995645fe528b9fc, type: 2}
   player: {fileID: 0}
   maxLevel: 4
-  startingHits: 9
-  maxSpeed: 4
-  minSpeed: 2
+  startingHits: 5
+  maxSpeed: 3.5
+  relativeSpeed: 2
+  minSpeed: .5
   aster: {fileID: 100000, guid: b50d6af26d8acdf4b896f1ae9c4dbe17, type: 2}
   spawnDistance: .449999988
   respawning: 0

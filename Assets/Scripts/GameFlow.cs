@@ -41,6 +41,7 @@ public class GameFlow : MonoBehaviour {
 		if (state != State.Play) return;
 		state = State.End;
 		StartCoroutine(ShowMenuAfterEnd());
+		AudioManager.End ();
 		StartCoroutine(white.DoFade(1f, 6f, true));
 	}
 

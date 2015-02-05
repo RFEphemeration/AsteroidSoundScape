@@ -19,7 +19,8 @@ public class World : MonoBehaviour {
 	public int startingHits = 52;
 
 	public float maxSpeed = 4f;
-	public float minSpeed = 2f;
+	public float relativeSpeed = 2f;
+	public float minSpeed = 0.5f;
 
 	public GameObject aster;
 
@@ -92,6 +93,7 @@ public class World : MonoBehaviour {
 		} while (!flag);
 		*/
 		while (remainingHits > 0) {
+			int level = maxLevel;
 			Vector3 pos = Vector3.zero;
 			while (pos.magnitude < ship.size + maxLevel / 2f) {
 				pos = new Vector3(Random.Range(0, World.width) - World.width/2 , Random.Range(0, World.height) - World.height/2, 0);
@@ -102,12 +104,12 @@ public class World : MonoBehaviour {
 			child = spawn.GetComponent<Asteroid>();
 			child.hits = 0;
 			while (child.hits == 0) {
-				if (remainingHits > levelHits[maxLevel-1,1]) {
-					child.hits = levelHits[maxLevel-1,1];
-				} else if (remainingHits >= levelHits[maxLevel-1,0]) {
+				if (remainingHits > levelHits[level-1,1]) {
+					child.hits = levelHits[level-1,1];
+				} else if (remainingHits >= levelHits[level-1,0]) {
 					child.hits = remainingHits;
 				} else {
-					maxLevel -= 1;
+					level -= 1;
 				}
 			}
 			remainingHits -= child.hits;
@@ -115,7 +117,9 @@ public class World : MonoBehaviour {
 			while (levelHits[child.level-1,1] < child.hits) {
 				child.level++;
 			}
-			child.speed = Random.Range(minSpeed, maxSpeed * child.level / maxLevel);
+			child.speed = Random.value * relativeSpeed * maxLevel / child.level;
+			child.speed = Mathf.Max (child.speed, minSpeed);
+			child.speed = Mathf.Min (child.speed, maxSpeed);
 			child.SendMessage("Generate");
 			Asteroids.Add(spawn);
 		}
@@ -146,7 +150,9 @@ public class World : MonoBehaviour {
 			while (levelHits[child.level-1,1] < child.hits) {
 				child.level++;
 			}
-			child.speed = Random.Range(minSpeed, maxSpeed * child.level / maxLevel);
+			child.speed = Random.value * relativeSpeed * maxLevel / child.level;
+			child.speed = Mathf.Max (child.speed, minSpeed);
+			child.speed = Mathf.Min (child.speed, maxSpeed);
 			child.SendMessage("Generate");
 			Asteroids.Add(spawn);
 		}
