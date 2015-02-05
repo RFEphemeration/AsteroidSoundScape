@@ -24,6 +24,8 @@ public class Control : MonoBehaviour {
 
 	public List<Reloader> ammoSlots;
 
+	// to prevent killing multiple asteroids with one hit.
+	// Spawning them on the next frame would also solve this
 	private bool isColliding = false;
 
 	public AudioClip shotSound;
@@ -39,7 +41,8 @@ public class Control : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (GameFlow.state == GameFlow.State.Pause) return;
+		if (GameFlow.instance.state == GameFlow.State.Pause) return;
+		isColliding = false;
 		if (Input.GetKey ("left")) transform.Rotate(0,0, turnRate * Time.deltaTime);
 		if (Input.GetKey ("right")) transform.Rotate(0,0, -turnRate * Time.deltaTime);
 		if (Input.GetKey ("up")) { 

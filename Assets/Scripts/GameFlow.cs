@@ -10,7 +10,7 @@ public class GameFlow : MonoBehaviour {
 
 	public List<CanvasRenderer> text;
 
-	public static State state = State.Menu;
+	public State state = State.Menu;
 	// Use this for initialization
 	void Start () {
 	

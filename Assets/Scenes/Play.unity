@@ -1333,11 +1333,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea8e14863952c564b96ebc20afa9414b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMan: {fileID: 1738860424}
-  playerPrefab: {fileID: 100014, guid: 17251484f726e284a875186a1d7bc1ae, type: 2}
+  playerPrefab: {fileID: 100014, guid: b7ccb222e4d985e44995645fe528b9fc, type: 2}
   player: {fileID: 0}
   maxLevel: 4
-  startingHits: 48
+  startingHits: 9
   maxSpeed: 4
   minSpeed: 2
   aster: {fileID: 100000, guid: b50d6af26d8acdf4b896f1ae9c4dbe17, type: 2}
@@ -1968,7 +1967,7 @@ Transform:
   m_GameObject: {fileID: 1360573670}
   m_LocalRotation: {x: -.707106829, y: 0, z: 0, w: .707106829}
   m_LocalPosition: {x: 0, y: 0, z: 4.01999998}
-  m_LocalScale: {x: 2, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2115061096}
   m_RootOrder: 0
@@ -2030,7 +2029,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1411545794}
   m_LocalRotation: {x: .408217937, y: -.234569728, z: .109381661, w: .875426114}
-  m_LocalPosition: {x: 5.54198742, y: .0435190201, z: 7.5851469}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2601,7 +2600,7 @@ Transform:
   m_GameObject: {fileID: 1786332972}
   m_LocalRotation: {x: -.707106829, y: 0, z: 0, w: .707106829}
   m_LocalPosition: {x: 0, y: 0, z: 18.4500008}
-  m_LocalScale: {x: 2, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2115061096}
   m_RootOrder: 1
@@ -2847,6 +2846,7 @@ MonoBehaviour:
   - {fileID: 815253733}
   - {fileID: 1690783439}
   - {fileID: 476744760}
+  state: 2
 --- !u!1 &2115061091
 GameObject:
   m_ObjectHideFlags: 0

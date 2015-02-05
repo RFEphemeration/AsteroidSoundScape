@@ -41,7 +41,7 @@ public class World : MonoBehaviour {
 	}
 
 	void Update() {
-		if (GameFlow.state != GameFlow.State.Play) return;
+		if (GameFlow.instance.state != GameFlow.State.Play) return;
 		if (respawning && Time.time > respawnTime) {
 			TryRespawnPlayer();
 		}
