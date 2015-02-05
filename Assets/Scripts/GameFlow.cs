@@ -20,7 +20,6 @@ public class GameFlow : MonoBehaviour {
 	void Update () {
 		if (state == State.Menu) {
 			if (Input.GetKeyDown("space")) {
-				Debug.Log ("reset");
 				StartGame();
 			}
 		} else if (state == State.Play) {
@@ -41,7 +40,6 @@ public class GameFlow : MonoBehaviour {
 	public void EndGame() {
 		if (state != State.Play) return;
 		state = State.End;
-		Debug.Log ("Game End");
 		StartCoroutine(ShowMenuAfterEnd());
 		StartCoroutine(white.DoFade(1f, 6f, true));
 	}
@@ -56,7 +54,6 @@ public class GameFlow : MonoBehaviour {
 	}
 
 	public void StartGame() {
-		Debug.Log("Game Start");
 		World.instance.Clear ();
 		StartCoroutine(white.DoFade(0f, 3f, false));
 		foreach( CanvasRenderer cr in text) {

@@ -21,6 +21,8 @@ public class Asteroid : MonoBehaviour {
 
 	public float rotation = 0f;
 
+	public bool isColliding = false;
+
 	void Start() {
 		spawned = false;
 	}
@@ -31,6 +33,7 @@ public class Asteroid : MonoBehaviour {
 		                                 -World.height/2 - size + Mathf.Repeat(transform.position.y + World.height/2 + size, World.height + size * 2),
 		                                 transform.position.z);
 		transform.Rotate(0f, 0f, rotation * Time.deltaTime);
+		isColliding = false;
 	}
 
 	public void Generate() {
@@ -53,6 +56,8 @@ public class Asteroid : MonoBehaviour {
 	}
 
 	void Kill () {
+		if(isColliding) return;
+		isColliding = true;
 		// AudioSource.PlayClipAtPoint(explosionSound, transform.position);
 		World.instance.hitCount += 1;
 		AudioManager.Progress();
