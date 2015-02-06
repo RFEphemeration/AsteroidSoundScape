@@ -45,8 +45,8 @@ public class Wrapper : MonoBehaviour {
 			transform.position = original.transform.position + offset;
 			transform.rotation = original.transform.rotation;
 		} else {
-			transform.position = new Vector3(-World.width/2 + Mathf.Repeat(transform.position.x + World.width/2, World.width * 2),
-			                                 -World.height/2 + Mathf.Repeat(transform.position.y + World.height/2, World.height * 2),
+			transform.position = new Vector3(-World.width/2f + Mathf.Repeat(transform.position.x + World.width/2f, World.width),
+			                                 -World.height/2f + Mathf.Repeat(transform.position.y + World.height/2f, World.height),
 			                                 transform.position.z);
 		}
 	}

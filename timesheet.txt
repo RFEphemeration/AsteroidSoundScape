@@ -28,3 +28,7 @@ Wednesday 4 February
 
 Thursday 5 February
   3 hours music fade and world wrapping
+
+Friday 6 February
+  3 hours 2d asteroids and debugging world wrapping
+  

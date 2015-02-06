@@ -50,12 +50,12 @@ public class Asteroid : MonoBehaviour {
 	}
 
 	void Kill () {
+		if(isColliding) return;
+		isColliding = true;
 		if(gameObject.GetComponentInChildren<Wrapper>().index >= 0) {
 			gameObject.GetComponentInChildren<Wrapper>().original.SendMessage("Kill");
 			return;
 		}
-		if(isColliding) return;
-		isColliding = true;
 		// AudioSource.PlayClipAtPoint(explosionSound, transform.position);
 		World.instance.hitCount += 1;
 		AudioManager.Progress();

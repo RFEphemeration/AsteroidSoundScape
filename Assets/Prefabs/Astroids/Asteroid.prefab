@@ -60,10 +60,11 @@ MonoBehaviour:
   hits: 13
   speed: 5
   views:
-  - {fileID: 100004, guid: b42811430ae1a454dbbfa108bd258cfa, type: 2}
-  - {fileID: 100000, guid: c089f0766bdc58749b1e241562734fc1, type: 2}
-  - {fileID: 100006, guid: 9246d3144eecdae43a561ed474ab09d7, type: 2}
-  - {fileID: 100000, guid: 417debcdf2fb91443873d96a85745345, type: 2}
+  - {fileID: 123898, guid: 4d21713d9953a764ba24d13f746f189b, type: 2}
+  - {fileID: 195832, guid: c288fd6ddb32cf7409dd952f447cb50d, type: 2}
+  - {fileID: 153120, guid: 697c73f8274728043a51f91b7c972d1c, type: 2}
+  - {fileID: 123578, guid: 8cde0f90a8d715f4c89bd3c42d8429a6, type: 2}
+  - {fileID: 155294, guid: 0286378b03e7acd47959c69f9b03d102, type: 2}
   spawned: 0
   aster: {fileID: 100000}
   explosionSound: {fileID: 8300000, guid: fe305bf30ff79464d9c8c734186a572c, type: 3}

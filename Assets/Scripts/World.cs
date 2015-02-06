@@ -65,8 +65,6 @@ public class World : MonoBehaviour {
 	}
 
 	void SpawnAsteroids () {
-		GameObject spawn;
-		Asteroid child;
 		int remainingHits = startingHits;
 		Control ship = playerPrefab.GetComponent<Control>();
 		/* Trying to divide in interesting ways, instead of naiive 
@@ -101,70 +99,44 @@ public class World : MonoBehaviour {
 			while (pos.magnitude < ship.size + maxLevel / 2f) {
 				pos = new Vector3(Random.Range(0, World.width) - World.width/2 , Random.Range(0, World.height) - World.height/2, 0);
 			}
-			spawn = (GameObject) Instantiate(aster,
-			                                 pos,
-			                                 Quaternion.Euler(0,0, Random.Range(0f, 360f)));
-			child = spawn.GetComponent<Asteroid>();
-			child.hits = 0;
-			while (child.hits == 0) {
-				if (remainingHits > levelHits[level-1,1]) {
-					child.hits = levelHits[level-1,1];
-				} else if (remainingHits >= levelHits[level-1,0]) {
-					child.hits = remainingHits;
-				} else {
-					level -= 1;
-				}
-			}
-			remainingHits -= child.hits;
-			child.level = 1;
-			while (levelHits[child.level-1,1] < child.hits) {
-				child.level++;
-			}
-			child.speed = Random.value * relativeSpeed * maxLevel / child.level;
-			child.speed = Mathf.Max (child.speed, minSpeed);
-			child.speed = Mathf.Min (child.speed, maxSpeed);
-			child.SendMessage("Generate");
-			Asteroids.Add(spawn);
-		}
-		foreach (GameObject a in Asteroids) {
-			a.SendMessage("CreateCopies");
+			remainingHits -= createChild (remainingHits, level, pos);
 		}
 	}
 
 	public void SpawnChildren (int level, int hits, Vector3 pos, float speed) {
 		level -= 1;
-		GameObject spawn;
-		Asteroid child;
 		int remainingHits = hits - 1;
 		while (remainingHits > 0) {
-			spawn = (GameObject) Instantiate(aster,
-			                                 pos,
-			                                 Quaternion.Euler(0,0, Random.Range(0f, 360f)));
-			child = spawn.GetComponent<Asteroid>();
-			child.hits = 0;
-			while (child.hits == 0) {
-				if (remainingHits > levelHits[level-1,1]) {
-					child.hits = levelHits[level-1,1];
-				} else if (remainingHits >= levelHits[level-1,0]) {
-					child.hits = remainingHits;
-				} else {
-					level -= 1;
-				}
-			}
-			remainingHits -= child.hits;
-			child.level = 1;
-			while (levelHits[child.level-1,1] < child.hits) {
-				child.level++;
-			}
-			child.speed = Random.value * relativeSpeed * maxLevel / child.level;
-			child.speed = Mathf.Max (child.speed, minSpeed);
-			child.speed = Mathf.Min (child.speed, maxSpeed);
-			child.SendMessage("Generate");
-			Asteroids.Add(spawn);
+			remainingHits -= createChild (remainingHits, level, pos);
 		}
-		foreach (GameObject a in Asteroids) {
-			a.SendMessage("CreateCopies");
+	}
+
+	private int createChild(int remainingHits, int level, Vector3 pos) {
+		GameObject spawn = (GameObject) Instantiate(aster,
+		                                 pos,
+		                                 Quaternion.Euler(0,0, Random.Range(0f, 360f)));
+		Asteroid child = spawn.GetComponent<Asteroid>();
+		child.hits = 0;
+		while (child.hits == 0) {
+			if (remainingHits > levelHits[level-1,1]) {
+				child.hits = levelHits[level-1,1];
+			} else if (remainingHits >= levelHits[level-1,0]) {
+				child.hits = remainingHits;
+			} else {
+				level -= 1;
+			}
 		}
+		child.level = 1;
+		while (levelHits[child.level-1,1] < child.hits) {
+			child.level++;
+		}
+		child.speed = Random.value * relativeSpeed * maxLevel / child.level;
+		child.speed = Mathf.Max (child.speed, minSpeed);
+		child.speed = Mathf.Min (child.speed, maxSpeed);
+		child.SendMessage("Generate");
+		Asteroids.Add(spawn);
+		spawn.SendMessage("CreateCopies");
+		return child.hits;
 	}
 
 	public bool TryRespawnPlayer() {

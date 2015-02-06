@@ -14,6 +14,7 @@ public class AudioManager : MonoBehaviour {
 
 	public static void Begin() {
 		Fabric.EventManager.Instance.PostEvent("Music", Fabric.EventAction.ResetSequence);
+		Fabric.EventManager.Instance.PostEvent("Music", Fabric.EventAction.PlaySound);
 		Fabric.EventManager.Instance.PostEvent("Music", Fabric.EventAction.SetFadeIn);
 	}
 
