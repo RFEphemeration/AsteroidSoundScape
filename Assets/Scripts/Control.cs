@@ -42,6 +42,7 @@ public class Control : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (GameFlow.instance.state == GameFlow.State.Pause) return;
+		if (gameObject.GetComponent<Wrapper>().index >= 0) return;
 		isColliding = false;
 		if (Input.GetKey ("left")) transform.Rotate(0,0, turnRate * Time.deltaTime);
 		if (Input.GetKey ("right")) transform.Rotate(0,0, -turnRate * Time.deltaTime);
@@ -62,10 +63,10 @@ public class Control : MonoBehaviour {
 			}
 		}
 		if (rigidbody.velocity.magnitude > maxSpeed) rigidbody.velocity = rigidbody.velocity.normalized * maxSpeed;
-		
-		transform.position = new Vector3(-World.width/2 - size + Mathf.Repeat(transform.position.x + World.width/2 + size, World.width + size * 2),
+		/* transform.position = new Vector3(-World.width/2 - size + Mathf.Repeat(transform.position.x + World.width/2 + size, World.width + size * 2),
 		                                 -World.height/2 - size + Mathf.Repeat(transform.position.y + World.height/2 + size, World.height + size * 2),
 		                                 transform.position.z);
+		                                 */
 	}
 
 	bool Shoot () {

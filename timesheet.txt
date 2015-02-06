@@ -25,3 +25,6 @@ Wednesday 4 February
   15 minutes organization
   45 minutes 3d ship and collision
   1 hour collision tweaks and newgame
+
+Thursday 5 February
+  

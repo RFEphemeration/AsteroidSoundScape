@@ -48,6 +48,7 @@ GameObject:
   - 4: {fileID: 400014}
   - 114: {fileID: 11400004}
   - 54: {fileID: 5400000}
+  - 114: {fileID: 11495252}
   m_Layer: 0
   m_Name: Player3D
   m_TagString: Player
@@ -334,7 +335,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 56
+  m_Constraints: 120
   m_CollisionDetection: 2
 --- !u!64 &6435342
 MeshCollider:
@@ -437,7 +438,7 @@ MonoBehaviour:
   turnRate: 200
   fireDelay: .25
   reloadInterval: .99000001
-  size: .800000012
+  size: 0
   gunpoint: .550000012
   ammoSlots:
   - {fileID: 11455544}
@@ -461,6 +462,21 @@ MonoBehaviour:
   currentScaleX: 0
   reloadInterval: 4.4000001
   reloadTime: 0
+--- !u!114 &11495252
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 335d0c3732547a74eaed97061fc5b50c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  copies: []
+  original: {fileID: 100014}
+  offset: {x: 0, y: 0, z: 0}
+  index: -1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

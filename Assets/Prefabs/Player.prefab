@@ -133,6 +133,7 @@ GameObject:
   - 4: {fileID: 400014}
   - 114: {fileID: 11400004}
   - 54: {fileID: 5400000}
+  - 114: {fileID: 11452388}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -965,7 +966,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 56
+  m_Constraints: 120
   m_CollisionDetection: 2
 --- !u!65 &6500000
 BoxCollider:
@@ -1127,13 +1128,28 @@ MonoBehaviour:
   turnRate: 200
   fireDelay: .25
   reloadInterval: 4
-  size: .800000012
+  size: 0
   gunpoint: .449999988
   ammoSlots:
   - {fileID: 11400002}
   - {fileID: 11472476}
   shotSound: {fileID: 8300000, guid: 4e88c61a08f55c74bb28e7f925ade304, type: 3}
   deathSound: {fileID: 8300000, guid: eb5d9e411ad5ee042a30528f6f4a1386, type: 3}
+--- !u!114 &11452388
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 335d0c3732547a74eaed97061fc5b50c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  copies: []
+  original: {fileID: 100014}
+  offset: {x: 0, y: 0, z: 0}
+  index: -1
 --- !u!114 &11472476
 MonoBehaviour:
   m_ObjectHideFlags: 1

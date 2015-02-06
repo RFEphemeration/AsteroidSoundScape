@@ -9,6 +9,9 @@ public class World : MonoBehaviour {
 	
 	public static float width = 10f;
 	public static float height = 10f;
+	int lastWidth;
+	int lastHeight;
+	bool stay = true;
 
 	public static float maxDist;
 
@@ -123,6 +126,9 @@ public class World : MonoBehaviour {
 			child.SendMessage("Generate");
 			Asteroids.Add(spawn);
 		}
+		foreach (GameObject a in Asteroids) {
+			a.SendMessage("CreateCopies");
+		}
 	}
 
 	public void SpawnChildren (int level, int hits, Vector3 pos, float speed) {
@@ -156,6 +162,9 @@ public class World : MonoBehaviour {
 			child.SendMessage("Generate");
 			Asteroids.Add(spawn);
 		}
+		foreach (GameObject a in Asteroids) {
+			a.SendMessage("CreateCopies");
+		}
 	}
 
 	public bool TryRespawnPlayer() {
@@ -170,6 +179,7 @@ public class World : MonoBehaviour {
 			}
 		}
 		player = (GameObject) Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+		player.SendMessage("CreateCopies");
 		respawning = false;
 		return true;
 
@@ -185,11 +195,8 @@ public class World : MonoBehaviour {
 	public void Reset() {
 		respawning = true;
 		respawnTime = Time.time + respawnDelay;
-		height = Camera.main.orthographicSize * 2;
-		
-		float aspectRatio = (float)Screen.width / (float)Screen.height;
-		width = height * aspectRatio;
-		maxDist = Mathf.Sqrt(width * width + height * height);
+		Resize();
+
 		hitCount = 0;
 		SpawnAsteroids();
 	}
@@ -201,6 +208,37 @@ public class World : MonoBehaviour {
 			Destroy(g);
 		}
 		Asteroids = new List<GameObject>();
+	}
+
+	IEnumerator CheckForResize(){
+		lastWidth = Screen.width;
+		lastHeight = Screen.height;
+		
+		while( stay ){
+			if( lastWidth != Screen.width || lastHeight != Screen.height ){
+				lastWidth = Screen.width;
+				lastHeight = Screen.height;
+				Resize ();
+
+			}
+			yield return new WaitForSeconds(0.3f);
+		}
+	}
+
+	public void Resize() {
+		height = Camera.main.orthographicSize * 2;
+		float aspectRatio = (float)Screen.width / (float)Screen.height;
+		width = height * aspectRatio;
+		maxDist = Mathf.Sqrt(width * width + height * height);
+		foreach (GameObject g in GameObject.FindObjectsOfType<GameObject>()) {
+			if (g.activeInHierarchy) {
+				g.SendMessage("OnResize", SendMessageOptions.DontRequireReceiver);
+			}
+		}
+	}
+	
+	void OnDestroy(){
+		stay = false;
 	}
 	
 	private static World _instance;
