@@ -110,6 +110,10 @@ public class Control : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		if(isColliding) return;
 		isColliding = true;
+		if(gameObject.GetComponentInChildren<Wrapper>().index >= 0) {
+			gameObject.GetComponentInChildren<Wrapper>().original.SendMessage("OnTriggerEnter", other);
+			return;
+		}
 		Transform current = other.transform;
 		while (current != null) {
 			if (current.tag == "Asteroid") {

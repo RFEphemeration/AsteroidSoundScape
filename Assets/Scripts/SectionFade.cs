@@ -64,14 +64,12 @@ public class SectionFade : Fade {
 	*/
 
 	public new IEnumerator DoFade (float delay, float time, bool fadeIn) {
-		Debug.Log ("doing fade");
 		yield return new WaitForSeconds(delay);
 		changeTime = Time.time;
 		List<Renderer> children = new List<Renderer>();
 		foreach (Transform t in transform) {
 			if (t.renderer != null) children.Add (t.renderer);
 		}
-		Debug.Log (children.Count);
 		int total = children.Count;
 		int count = 0;
 		int frameCount = 0;
