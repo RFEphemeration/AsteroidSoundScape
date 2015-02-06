@@ -42,6 +42,7 @@ public class World : MonoBehaviour {
 	public int deathCount = 0;
 	
 	void Start () {
+		Resize ();
 	}
 
 	void Update() {
@@ -168,7 +169,6 @@ public class World : MonoBehaviour {
 		respawning = true;
 		respawnTime = Time.time + respawnDelay;
 		Resize();
-
 		hitCount = 0;
 		SpawnAsteroids();
 	}

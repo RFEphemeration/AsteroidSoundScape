@@ -6,7 +6,7 @@ public class GameFlow : MonoBehaviour {
 
 	public enum State { Play, Pause, Menu, End }
 
-	public Fade white;
+	public SectionFade white;
 
 	public List<CanvasRenderer> text;
 
@@ -46,7 +46,7 @@ public class GameFlow : MonoBehaviour {
 	}
 
 	private IEnumerator ShowMenuAfterEnd() {
-		yield return new WaitForSeconds(4f);
+		yield return new WaitForSeconds(6f);
 		foreach( CanvasRenderer cr in text) {
 			cr.gameObject.SetActive(true);
 		}

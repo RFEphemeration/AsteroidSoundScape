@@ -23,6 +23,7 @@ public class Wrapper : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		transform.parent = World.instance.transform;
 
 	}
 

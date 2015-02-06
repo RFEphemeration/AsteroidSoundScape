@@ -6,7 +6,7 @@ public class Fade : MonoBehaviour {
 	public float fadeRate = 0.6f;
 	public bool visible;
 
-	private float changeTime = 0f;
+	public float changeTime = 0f;
 
 	// Use this for initialization
 	void Start () {
