@@ -31,5 +31,5 @@ Thursday 5 February
 
 Friday 6 February
   3 hours 2d asteroids and debugging world wrapping
-  1 hours Better White Fade
-  
+  1 hour Better White Fade
+  30 minutes explosions

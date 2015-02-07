@@ -6,6 +6,8 @@ public class World : MonoBehaviour {
 
 	public GameObject playerPrefab;
 	public GameObject player;
+
+	public Explosion explosion;
 	
 	public static float width = 10f;
 	public static float height = 10f;
@@ -180,6 +182,10 @@ public class World : MonoBehaviour {
 			Destroy(g);
 		}
 		Asteroids = new List<GameObject>();
+	}
+
+	public static void MakeExplosion(Vector3 pos, int bits) {
+		
 	}
 
 	IEnumerator CheckForResize(){

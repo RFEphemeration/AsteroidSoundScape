@@ -51,7 +51,7 @@ public class Fade : MonoBehaviour {
 		}
 	}
 
-	public float Ease(float a) {
+	public static float Ease(float a) {
 		if (a > 1f) return 1f;
 		if (a < 0f) return 0f;
 		return a * a * (3.0f - 2.0f * a);
