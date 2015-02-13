@@ -8,7 +8,9 @@ public class SectionFade : Fade {
 
 	public float spacing = 0.2f;
 
-	new void Start() {
+	public int frameMax = 100;
+
+	void Start() {
 		if (visible) {
 			foreach (Transform t in transform) {
 				if (t.renderer != null) {
@@ -76,9 +78,10 @@ public class SectionFade : Fade {
 		changeTime = Time.time;
 		Renderer r;
 		while (children.Count > 0) {
+			int start = count;
 			frameCount = Mathf.CeilToInt(Ease((Time.time - changeTime)/time)*total) + 1;
 			frameCount = Mathf.Min(frameCount, total);
-			while (frameCount > count) {
+			while (frameCount > count && count < start + frameMax) {
 				count += 1;
 				r = children[Random.Range(0, children.Count)];
 				r.enabled = fadeIn;

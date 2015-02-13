@@ -61,6 +61,7 @@ public class GameFlow : MonoBehaviour {
 			cr.gameObject.SetActive(false);
 		}
 		World.instance.Reset();
+		World.instance.InitiatePlayer();
 		state = State.Play;
 		AudioManager.Begin();
 	}

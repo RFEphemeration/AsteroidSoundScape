@@ -33,3 +33,6 @@ Friday 6 February
   3 hours 2d asteroids and debugging world wrapping
   1 hour Better White Fade
   30 minutes explosions
+  
+Thursday 12 February
+  45 minutes fade and web links

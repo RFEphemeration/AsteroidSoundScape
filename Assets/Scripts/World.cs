@@ -168,11 +168,14 @@ public class World : MonoBehaviour {
 	}
 
 	public void Reset() {
-		respawning = true;
-		respawnTime = Time.time + respawnDelay;
 		Resize();
 		hitCount = 0;
 		SpawnAsteroids();
+	}
+
+	public void InitiatePlayer() {
+		respawning = true;
+		rewspawnTime = Time.time + respawnDelay;
 	}
 
 	public void Clear() {
