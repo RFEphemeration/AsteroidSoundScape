@@ -175,7 +175,7 @@ public class World : MonoBehaviour {
 
 	public void InitiatePlayer() {
 		respawning = true;
-		rewspawnTime = Time.time + respawnDelay;
+		respawnTime = Time.time + respawnDelay;
 	}
 
 	public void Clear() {
