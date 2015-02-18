@@ -37,6 +37,7 @@ public class Control : MonoBehaviour {
 			r.reloadInterval = reloadInterval;
 		}
 		reloadTime = -reloadInterval - 1f;
+		rigidbody.velocity = Vector3.zero;
 	}
 	
 	// Update is called once per frame

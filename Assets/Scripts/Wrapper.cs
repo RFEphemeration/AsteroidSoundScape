@@ -28,10 +28,11 @@ public class Wrapper : MonoBehaviour {
 	}
 
 	void CreateCopies() {
+		if (!enabled) return;
 		if (index >= 0) return;
 		offset = Vector3.zero;
 		for (int i = 0; i < 8; i++) {
-			copies.Add((GameObject) Instantiate(gameObject));
+			copies.Add((GameObject) Instantiate(gameObject, Vector3.up * World.height, Quaternion.identity));
 			Wrapper w = copies[i].GetComponent<Wrapper>();
 			w.copies = new List<GameObject>();
 			w.original = gameObject;

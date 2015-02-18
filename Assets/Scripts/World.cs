@@ -154,7 +154,7 @@ public class World : MonoBehaviour {
 			}
 		}
 		player = (GameObject) Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
-		player.SendMessage("CreateCopies");
+		player.SendMessage("CreateCopies", SendMessageOptions.DontRequireReceiver);
 		respawning = false;
 		return true;
 
