@@ -35,7 +35,8 @@ public class Explosion : MonoBehaviour {
 	void Update () {
 		if (startTime < 0f) return;
 		foreach (Transform t in transform) {
-			t.localScale = new Vector3(1f, (1f-Fade.Ease((Time.time - startTime)/time)), 1f);
+			// outdated
+			// t.localScale = new Vector3(1f, (1f-Fade.Ease((Time.time - startTime)/time)), 1f);
 		}
 		if (Time.time - startTime > time) {
 			Destroy (gameObject);
@@ -55,9 +56,7 @@ public class Explosion : MonoBehaviour {
 			GameObject g = (GameObject) Instantiate(bit, pos, rot);
 			bitObjects.Add(g);
 			Rigidbody r = g.rigidbody;
-			foreach (Transform t in g.transform) {
-				t.localScale = new Vector3 (t.localScale.x, t.localScale.y * Random.Range(0.2f, startingRadius * 3f), t.localScale.z);
-			}
+			g.transform.localScale = new Vector3 (g.transform.localScale.x, g.transform.localScale.y * Random.Range(maxScale, minScale), g.transform.localScale.z);
 			r.angularVelocity = (Vector3.forward * Random.Range(-maxRotation, maxRotation));
 			r.velocity = (Random.value - 0.5f) * Vector3.up + (Random.value - 0.5f) * Vector3.right;
 			r.velocity = r.velocity.normalized * Random.Range (minVelocity, maxVelocity);

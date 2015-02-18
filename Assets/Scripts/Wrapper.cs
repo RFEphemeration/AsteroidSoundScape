@@ -30,6 +30,10 @@ public class Wrapper : MonoBehaviour {
 	void CreateCopies() {
 		if (!enabled) return;
 		if (index >= 0) return;
+		StartCoroutine(CopyRoutine());
+	}
+
+	IEnumerator CopyRoutine() {
 		offset = Vector3.zero;
 		for (int i = 0; i < 8; i++) {
 			copies.Add((GameObject) Instantiate(gameObject, Vector3.up * World.height, Quaternion.identity));
@@ -39,6 +43,7 @@ public class Wrapper : MonoBehaviour {
 			w.offset = offsets[i];
 			w.index = i;
 			w.OnResize();
+			yield return null;
 		}
 	}
 

@@ -39,13 +39,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b7b6dbe8a83374d8d1a7854e4de56d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bit: {fileID: 125236, guid: af99e2e7742b64944a2c7cc863646582, type: 2}
+  bit: {fileID: 159280, guid: d8fe59136c62d7c45859914b2c942c1a, type: 2}
   startingRadius: .100000001
   maxScale: .400000006
   minScale: .0500000007
-  maxVelocity: 1
-  maxRotation: 40
-  time: 1
+  maxVelocity: 2.01999998
+  minVelocity: .409999996
+  maxRotation: 22.8999996
+  time: .689999998
   bits: 4
   center: {x: 0, y: 0, z: 0}
 --- !u!1001 &100100000
