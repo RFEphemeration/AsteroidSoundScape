@@ -121,6 +121,7 @@ public class Control : MonoBehaviour {
 				// AudioSource.PlayClipAtPoint(deathSound, transform.position);
 				current.SendMessage("Kill");
 				World.instance.SendMessage("PlayerDied");
+				World.MakeExplosion(transform.position);
 				Destroy(gameObject);
 			}
 			current = current.parent;
