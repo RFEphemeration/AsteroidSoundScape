@@ -1462,7 +1462,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 100014, guid: 17251484f726e284a875186a1d7bc1ae, type: 2}
   player: {fileID: 0}
-  explosion: {fileID: 0}
+  explosion: {fileID: 113150, guid: d4f6a46d791d83a4686bf8b476901869, type: 2}
   maxLevel: 4
   startingHits: 5
   maxSpeed: 3.5

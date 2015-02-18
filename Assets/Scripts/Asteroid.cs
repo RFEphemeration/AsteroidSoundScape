@@ -62,6 +62,8 @@ public class Asteroid : MonoBehaviour {
 		World.instance.Asteroids.Remove(gameObject);
 		if (level > 1) {
 			World.instance.SpawnChildren(level, hits, transform.position, speed);
+		} else {
+			World.MakeExplosion(transform.position);
 		}
 		Destroy (gameObject);
 	}
